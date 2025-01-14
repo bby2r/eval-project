@@ -62,4 +62,8 @@ class User extends Authenticatable
         return $this->belongsToMany(self::class, 'user_subscribers', 'subscriber_id',
             'user_id');
     }
+
+    public function comments(): HasMany {
+        return $this->hasMany(Comment::class);
+    }
 }

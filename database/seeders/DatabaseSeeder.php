@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,7 +23,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Post::factory(300)->create();
+        $posts = Post::factory(150)->create();
+
+        foreach ($posts as $post) {
+            Comment::factory()->for($post)->count(5)->create();
+        }
+
 
         $users = User::all();
         foreach($users as $user) {
