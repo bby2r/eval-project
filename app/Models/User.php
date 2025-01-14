@@ -50,4 +50,16 @@ class User extends Authenticatable
     public function posts() : hasMany {
         return $this->hasMany(Post::class);
     }
+
+    public function subscribers()
+    {
+        return $this->belongsToMany(self::class, 'user_subscribers', 'user_id',
+            'subscriber_id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->belongsToMany(self::class, 'user_subscribers', 'subscriber_id',
+            'user_id');
+    }
 }
