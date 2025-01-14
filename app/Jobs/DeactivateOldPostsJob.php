@@ -4,11 +4,13 @@ namespace App\Jobs;
 
 use App\Models\Post;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Queue\SerializesModels;
 
 class DeactivateOldPostsJob implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, SerializesModels, Dispatchable;
 
     /**
      * Create a new job instance.
