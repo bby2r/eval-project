@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PostCreated;
 use App\Models\Post;
 use App\Models\PostStat;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -76,14 +77,32 @@ class PostController extends Controller
         //
     }
 
-    public function stats() : View {
+    public function stats($filters = ['posts'=>[], 'users'=>[]]) : View {
         $stats = PostStat::with('user', 'post')
+            ->filterUsers($filters['users'])
+            ->filterPosts($filters['posts'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
+
         return view('posts.stats', [
             'stats' => $stats,
-            'users_viewed' => PostStat::groupPosts()->get(),
-            'posts_viewed' => PostStat::groupUsers()->get()
+            'users_viewed' => PostStat::groupPosts()
+                ->filterUsers($filters['users'])
+                ->filterPosts($filters['posts'])
+                ->get(),
+            'posts_viewed' => PostStat::groupUsers()
+                ->filterUsers($filters['users'])
+                ->filterPosts($filters['posts'])->get(),
+            'post_titles' => Post::select(['id', 'title'])->get(),
+            'user_names' => User::select(['id', 'name'])->get(),
+        ]);
+    }
+
+    public function statsWithFilters(Request $request) : View {
+//        dd($request->postFilters);
+        return $this->stats([
+            'posts' => $request->postFilters,
+            'users' => $request->userFilters
         ]);
     }
 }

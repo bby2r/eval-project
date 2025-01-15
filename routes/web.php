@@ -21,3 +21,4 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 //Route::post('/register', [JWTAuthController::class, 'register'])->name('register');
 
 Route::get('/stats', [PostController::class, 'stats'])->name('posts.stats');
+Route::post('/posts/filter', [PostController::class, 'statsWithFilters'])->name('posts.filter');

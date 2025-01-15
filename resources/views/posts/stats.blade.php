@@ -4,6 +4,30 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Post Views Statistics</h1>
 
+        <form action="{{ route('posts.filter') }}" method="POST" class="mb-4">
+            @csrf
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="posts-filter">Filter by Posts</label>
+                    <select class="form-control" name="postFilters" id="posts-filter" multiple>
+                        @foreach($post_titles as $post_title)
+                            <option value="{{$post_title->id}}">{{$post_title->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label class="" for="users-filter">Filter by Users</label>
+                    <select class="form-control" name="userFilters" id="users-filter" multiple>
+                        @foreach($user_names as $user_name)
+                            <option value="{{$user_name->id}}">{{$user_name->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">

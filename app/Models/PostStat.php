@@ -43,10 +43,14 @@ class PostStat extends Model
     }
 
     public function scopeFilterPosts(Builder $query, $post_ids) : void {
-        $query->whereIn('post_id', $post_ids);
+        if($post_ids) {
+            $query->where('post_id', $post_ids);
+        }
     }
 
     public function scopeFilterUsers(Builder $query, $user_ids) : void {
-        $query->whereIn('post_id', $user_ids);
+        if($user_ids) {
+            $query->where('post_id', $user_ids);
+        }
     }
 }
