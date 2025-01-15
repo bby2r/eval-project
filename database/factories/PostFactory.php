@@ -20,7 +20,7 @@ class PostFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1, User::count()),
             'title' => $this->faker->sentence(),
-            'message' => $this->faker->text(),
+            'message' => $this->faker->text(1000),
             'active' => $this->faker->boolean(),
         ];
     }

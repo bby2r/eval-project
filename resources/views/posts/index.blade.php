@@ -6,7 +6,7 @@
         <a class="btn btn-primary my-3" href="{{route('posts.create')}}">Create a post</a>
         <div class="row">
             @foreach($posts as $post)
-                <div class="col-3">
+                <div class="col-6">
 
                         <div class="card mb-4 card-gap">
                             <div class="card-header">
@@ -16,12 +16,13 @@
                                 <h6 class="card-subtitle mb-2 text-muted">Posted by: {{ $post->user->name }}</h6>
                             </div>
                             <div class="card-body">
-                                <p class="card-text">{{ $post->message }}</p>
+                                <p class="card-text">{{ mb_strlen($post->message) > 200 ? mb_substr($post->message, 0, 200) . '...' : $post->message }}</p>
                             </div>
                         </div>
                 </div>
             @endforeach
         </div>
+        {{$posts->links()}}
     </div>
 
 @endsection
