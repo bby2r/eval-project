@@ -51,6 +51,11 @@ return [
     */
 
     'channels' => [
+        'post-view' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/post-views-'.date('Y-m-d').'.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
 
         'stack' => [
             'driver' => 'stack',
