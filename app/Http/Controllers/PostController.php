@@ -77,7 +77,7 @@ class PostController extends Controller
         //
     }
 
-    public function stats($filters = ['posts'=>[], 'users'=>[]]) : View {
+    public function stats($filters) : View {
         $stats = PostStat::with('user', 'post')
             ->filterUsers($filters['users'])
             ->filterPosts($filters['posts'])
@@ -100,10 +100,19 @@ class PostController extends Controller
 
     public function statsWithFilters(Request $request) : View {
 //        dd($request->postFilters);
-        return $this->stats([
-            'posts' => $request->postFilters,
-            'users' => $request->userFilters
-        ]);
+        $filters = [
+            'posts' => [],
+            'users' => []
+        ];
+        if($request->postFilters) {
+            $filters['posts'] = $request->postFilters;
+        }
+
+        if($request->userFilters) {
+            $filters['users'] = $request->userFilters;
+        }
+
+        return $this->stats($filters);
     }
 }
 
