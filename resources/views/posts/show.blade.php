@@ -31,6 +31,9 @@
         </div>
     </div>
 
+    <h4>About the author</h4>
+    <x-user-component :user="$post->user"></x-user-component>
+
     <div class="my-4 px-5">
         <h3>Leave a Comment</h3>
         <form action="{{ route('comments.store') }}" method="POST">
