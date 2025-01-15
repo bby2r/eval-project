@@ -17,5 +17,7 @@ Route::middleware(UserViewedPostMiddleware::class)->get('/posts/{post}', [PostCo
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
 //Route::group([])
-Route::post('/login', [JWTAuthController::class, 'login'])->name('login');
-Route::post('/register', [JWTAuthController::class, 'register'])->name('register');
+//Route::post('/login', [JWTAuthController::class, 'login'])->name('login');
+//Route::post('/register', [JWTAuthController::class, 'register'])->name('register');
+
+Route::get('/stats', [PostController::class, 'stats'])->name('posts.stats');

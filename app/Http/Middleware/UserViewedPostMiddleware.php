@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Post;
+use App\Models\PostStat;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -24,6 +25,10 @@ class UserViewedPostMiddleware
         $time = now();
         $post = json_decode($request->post);
         Log::channel('post-view')->info("Post \"{$request->post->title}\"\n\t has been viewed by user $user->name at $time");
+        PostStat::create([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+        ]);
         return $next($request);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\PostCreated;
 use App\Models\Post;
+use App\Models\PostStat;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -74,4 +75,16 @@ class PostController extends Controller
     {
         //
     }
+
+    public function stats() : View {
+        $stats = PostStat::with('user', 'post')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('posts.stats', [
+            'stats' => $stats,
+            'users_viewed' => PostStat::groupPosts()->get(),
+            'posts_viewed' => PostStat::groupUsers()->get()
+        ]);
+    }
 }
+
