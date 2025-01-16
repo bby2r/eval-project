@@ -38,10 +38,10 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#post-views" role="tab" aria-controls="profile" aria-selected="true">Generals Stats</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">View Logs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">View Logs</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#post-views" role="tab" aria-controls="profile" aria-selected="true">Generals Stats</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Each Post Views</a>
@@ -52,34 +52,7 @@
         </ul>
 
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="post-views" role="tabpanel" aria-labelledby="post-views-tab">
-                <div class="card my-3">
-                    <div class="card-header">
-                        <h5 class="card-title">Views</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Post Views</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($post_views as $view)
-                                <tr>
-                                    <td>{{ $view->date }}</td>
-                                    <td>
-                                        {{ $view->views }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="card my-3">
                     <div class="card-header">
                         <h5 class="card-title">Views</h5>
@@ -108,6 +81,33 @@
                             </tbody>
                         </table>
                         {{ $stats->links() }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="post-views" role="tabpanel" aria-labelledby="post-views-tab">
+                <div class="card my-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Views</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Post Views</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($post_views as $view)
+                                <tr>
+                                    <td>{{ $view->date }}</td>
+                                    <td>
+                                        {{ $view->views }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
