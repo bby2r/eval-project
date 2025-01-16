@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-        PostStat::factory(300)->create();
+        PostStat::factory(1000)->create();
 
     }
 }

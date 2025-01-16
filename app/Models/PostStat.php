@@ -59,4 +59,11 @@ class PostStat extends Model
             $query->whereIn(DB::raw('DATE(created_at)'), $dates);
         }
     }
+
+    public function scopePostViews(Builder $query): void {
+        $query->select([
+            DB::raw('count(id) as views'),
+            DB::raw('DATE(created_at) as date')
+        ])->groupBy('date');
+    }
 }

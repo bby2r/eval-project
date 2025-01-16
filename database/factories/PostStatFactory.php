@@ -21,6 +21,7 @@ class PostStatFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1, User::count()),
             'post_id' => $this->faker->numberBetween(1, Post::count()),
+            'created_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
         ];
     }
 }

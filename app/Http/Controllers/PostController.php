@@ -91,6 +91,7 @@ class PostController extends Controller
 
 
         return view('posts.stats', [
+            'post_views' => $this->applyFilters(PostStat::postViews(), $filters)->get(),
             'stats' => $stats,
             'users_viewed' => $this->applyFilters(PostStat::groupPosts(), $filters)->get(),
             'posts_viewed' => $this->applyFilters(PostStat::groupUsers(), $filters)->get(),
