@@ -77,22 +77,23 @@ class PostController extends Controller
         //
     }
 
-    public function stats($filters) : View {
+    public function stats(?array $filters = []) : View {
         $stats = PostStat::with('user', 'post')
-            ->filterUsers($filters['users'])
-            ->filterPosts($filters['posts'])
+            ->filterUsers(array_key_exists('users', $filters) ? $filters['users'] : [])
+            ->filterPosts(array_key_exists('posts', $filters) ? $filters['posts'] : [])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view('posts.stats', [
             'stats' => $stats,
             'users_viewed' => PostStat::groupPosts()
-                ->filterUsers($filters['users'])
-                ->filterPosts($filters['posts'])
+                ->filterUsers(array_key_exists('users', $filters) ? $filters['users'] : [])
+                ->filterPosts(array_key_exists('posts', $filters) ? $filters['posts'] : [])
                 ->get(),
             'posts_viewed' => PostStat::groupUsers()
-                ->filterUsers($filters['users'])
-                ->filterPosts($filters['posts'])->get(),
+                ->filterUsers(array_key_exists('users', $filters) ? $filters['users'] : [])
+                ->filterPosts(array_key_exists('posts', $filters) ? $filters['posts'] : [])
+                ->get(),
             'post_titles' => Post::select(['id', 'title'])->get(),
             'user_names' => User::select(['id', 'name'])->get(),
         ]);
