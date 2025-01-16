@@ -44,13 +44,19 @@ class PostStat extends Model
 
     public function scopeFilterPosts(Builder $query, $post_ids) : void {
         if($post_ids) {
-            $query->where('post_id', $post_ids);
+            $query->whereIn('post_id', $post_ids);
         }
     }
 
     public function scopeFilterUsers(Builder $query, $user_ids) : void {
         if($user_ids) {
-            $query->where('post_id', $user_ids);
+            $query->whereIn('user_id', $user_ids);
+        }
+    }
+
+    public function scopeFilterDates(Builder $query, $dates) : void {
+        if($dates) {
+            $query->whereIn(DB::raw('DATE(created_at)'), $dates);
         }
     }
 }
